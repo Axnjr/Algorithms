@@ -3,9 +3,7 @@
 #include <stack>
 using namespace std;
 
-template <typename T>
-
-class Stack {
+template <typename T> class Stack {
 
     private:
         int size;
@@ -16,8 +14,9 @@ class Stack {
 
         Stack(int s) {
             size = s;
-            arr = new int[s];
+            arr = new T[s];
             top = -1;
+            cout << "Stack of length: " << size << " intialized !!" << endl;
         }
 
         void push(T x){
@@ -33,34 +32,58 @@ class Stack {
                 cout << "Error: Stack Underflow" << endl;
                 return -1;
             }
-            delete arr[top--]; // use the previous value of top for indexing `arr` and then decrement it
+            return arr[top--];
+        }
+
+        T peek() {
             return arr[top];
         }
 
-        int peek();
-        bool isEmpty();
+        bool isEmpty() {
+            return (top == -1);
+        }
+
+        void showStack() {
+            cout << "Stack elements:" << endl;
+           for(int i = size; i > 0; i--){
+                cout << arr[i] << endl;
+           }
+        }
 };
 
 int main() {
+    Stack<int> s(10);        
+    for(int i = 10; i <= 100; i = i + 10){
+        s.push(i);
+    }
 
+    while (!s.isEmpty()) {
+        cout << s.peek() << endl;
+        s.pop();
+    }
     
+    cout << "Your Stack: " << s.isEmpty() << endl;
 
 	stack<int> intStack;
     stack<char> strStack;
+
 	for(int i = 0; i < 5; i++) {
 		intStack.push(i);
         strStack.push('a' + i);
 	}
+
     cout << "Stack in int form: ";
     while(!intStack.empty()) {
         cout << intStack.top() << " ";
         intStack.pop();
     }
+
     cout << endl;
     cout << "Stack in char form: ";
     while(!strStack.empty()) {
         cout << strStack.top() << " ";
         strStack.pop();
     }
+    
     return 0;
 }
