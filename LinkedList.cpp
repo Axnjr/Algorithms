@@ -69,9 +69,6 @@ class Linkedlist {
 		}
 		cout << "TRIED TO DELETE A NODE !" << endl;
 	}
-
-
-
 }; 
 
 int main() { 
