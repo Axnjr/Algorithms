@@ -28,6 +28,7 @@ void preOrderTraversalRecusrive(TreeNode* node){ // root node -> left node -> ri
     if(node == NULL) return;
     cout << node->data << "->";
     preOrderTraversalRecusrive(node->leftChildPtr);
+    preOrderTraversalRecusrive(node->rightChildPtr);
 }
 
 void inOrderTraversalIterative(TreeNode* node){
@@ -47,7 +48,25 @@ void inOrderTraversalIterative(TreeNode* node){
     }
 }
 
+void preOrderTraversalIterative(TreeNode* node){
+    stack<TreeNode*> s;
+    vector<int> v;
+    TreeNode* curr = node;
 
+    while(curr != NULL || s.empty() == false){
+        s.push(curr);
+        v.push_back(curr->data);
+        curr = curr->leftChildPtr;
+        if(curr == NULL){
+            s.pop();
+            curr = s.top();
+            while(curr != NULL){
+                curr = curr->rightChildPtr;
+                s.push(curr);
+            }
+        }
+    }
+}
 
 int main(){
     TreeNode* root = new TreeNode(1);
