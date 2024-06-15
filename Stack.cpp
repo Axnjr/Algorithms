@@ -64,26 +64,28 @@ int main() {
     
     cout << "Your Stack: " << s.isEmpty() << endl;
 
-	stack<int> intStack;
-    stack<char> strStack;
+    s.showStack();
 
-	for(int i = 0; i < 5; i++) {
-		intStack.push(i);
-        strStack.push('a' + i);
-	}
+	// stack<int> intStack;
+    // stack<char> strStack;
 
-    cout << "Stack in int form: ";
-    while(!intStack.empty()) {
-        cout << intStack.top() << " ";
-        intStack.pop();
-    }
+	// for(int i = 0; i < 5; i++) {
+	// 	intStack.push(i);
+    //     strStack.push('a' + i);
+	// }
 
-    cout << endl;
-    cout << "Stack in char form: ";
-    while(!strStack.empty()) {
-        cout << strStack.top() << " ";
-        strStack.pop();
-    }
-    
+    // cout << "Stack in int form: ";
+    // while(!intStack.empty()) {
+    //     cout << intStack.top() << " ";
+    //     intStack.pop();
+    // }
+
+    // cout << endl;
+    // cout << "Stack in char form: ";
+    // while(!strStack.empty()) {
+    //     cout << strStack.top() << " ";
+    //     strStack.pop();
+    // }
+
     return 0;
 }
