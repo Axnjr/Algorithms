@@ -1,3 +1,4 @@
+// Stack follows LIFO approch: `Last in First Out`
 #include <iostream> 
 #include <stack>
 using namespace std;
