@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stack>
+#include <vector>
 using namespace std;
 
 class TreeNode {
@@ -15,24 +16,38 @@ class TreeNode {
     }  
 };
 
-void inOrderTraversalRecursive(TreeNode* node){
+void inOrderTraversalRecursive(TreeNode* node){ // left most node -> root node -> right node
     if (node == NULL) return;
 
-    inorderTraversal(node->left);
+    inOrderTraversalRecursive(node->left);
     cout << node->data << "->";
-    inorderTraversal(node->right);
+    inOrderTraversalRecursive(node->right);
+}
+
+void preOrderTraversalRecusrive(TreeNode* node){ // root node -> left node -> right node
+    if(node == NULL) return;
+    cout << node->data << "->";
+    preOrderTraversalRecusrive(node->leftChildPtr);
 }
 
 void inOrderTraversalIterative(TreeNode* node){
     stack<TreeNode*> s;
+    vector<int> v;
     TreeNode* curr = node;
-
-    while(node->leftChildPtr != NULL){
-        s.push(node);
-        node = node->leftChildPtr;
+    
+    while(curr != NULL || s.empty() == false){
+        while(curr != NULL){
+            s.push(curr);
+            curr = curr->leftChildPtr;
+        }
+        curr = s.top();              // assign the top most element as current pointer in the tree.
+        s.pop();                     // once assigned pop it out
+        v.push_back(curr->data);     // push the value at the traversed node in the vector
+        curr = curr->rightChildPtr;  // now traverse right side if it exists
     }
-    cout << node->data;
 }
+
+
 
 int main(){
     TreeNode* root = new TreeNode(1);
