@@ -19,9 +19,9 @@ class TreeNode {
 void inOrderTraversalRecursive(TreeNode* node){ // left most node -> root node -> right node
     if (node == NULL) return;
 
-    inOrderTraversalRecursive(node->left);
+    inOrderTraversalRecursive(node->leftChildPtr);
     cout << node->data << "->";
-    inOrderTraversalRecursive(node->right);
+    inOrderTraversalRecursive(node->rightChildPtr);
 }
 
 void preOrderTraversalRecusrive(TreeNode* node){ // root node -> left node -> right node
@@ -53,8 +53,21 @@ void preOrderTraversalIterative(TreeNode* node){
     vector<int> v;
     TreeNode* curr = node;
 
-    
+    while(curr != NULL || s.empty() == false){
+        v.push_back(curr->data);
+        s.push(curr);
+        curr = curr->leftChildPtr;
+        if(curr == NULL){
+            curr = s.top();
+            s.pop();
+            curr = curr->rightChildPtr;
+        }
+    }
 
+    cout << "TRAVERSED TREE IN PRE-ORDER STYLE: ";
+    // for(int i = 0; i < v.size(); i++){
+    //     cout << v[i] << endl;
+    // }
 }
 
 // Inorder: 4 2 5 1 3
@@ -68,6 +81,7 @@ int main(){
     root->leftChildPtr->leftChildPtr = new TreeNode(4);
     root->leftChildPtr->rightChildPtr = new TreeNode(5);
 
-    inOrderTraversalIterative(root);
+    // inOrderTraversalIterative(root);
+    preOrderTraversalIterative(root);
     return 0;
 }
