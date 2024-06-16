@@ -46,6 +46,11 @@ void inOrderTraversalIterative(TreeNode* node){
         v.push_back(curr->data);     // push the value at the traversed node in the vector
         curr = curr->rightChildPtr;  // now traverse right side if it exists
     }
+
+    cout << "TRAVERSED TREE IN IN-ORDER STYLE: ";
+    for(int i = 0; i < v.size(); i++){
+        cout << v[i] << endl;
+    }
 }
 
 void preOrderTraversalIterative(TreeNode* node){
@@ -53,21 +58,23 @@ void preOrderTraversalIterative(TreeNode* node){
     vector<int> v;
     TreeNode* curr = node;
 
-    while(s.empty() == false){
-        v.push_back(curr->data);
-        s.push(curr);
-        curr = curr->leftChildPtr;
+    while(curr != NULL || s.empty() == false){
         if(curr == NULL){
             curr = s.top();
             s.pop();
             curr = curr->rightChildPtr;
         }
+        else{
+            v.push_back(curr->data);
+            s.push(curr);
+            curr = curr->leftChildPtr;
+        }
     }
 
     cout << "TRAVERSED TREE IN PRE-ORDER STYLE: ";
-    // for(int i = 0; i < v.size(); i++){
-    //     cout << v[i] << endl;
-    // }
+    for(int i = 0; i < v.size(); i++){
+        cout << v[i] << endl;
+    }
 }
 
 // Inorder: 4 2 5 1 3
