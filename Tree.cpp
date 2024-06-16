@@ -53,7 +53,7 @@ void preOrderTraversalIterative(TreeNode* node){
     vector<int> v;
     TreeNode* curr = node;
 
-    while(curr != NULL || s.empty() == false){
+    while(s.empty() == false){
         v.push_back(curr->data);
         s.push(curr);
         curr = curr->leftChildPtr;
