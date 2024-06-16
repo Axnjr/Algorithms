@@ -53,16 +53,13 @@ void preOrderTraversalIterative(TreeNode* node){
     vector<int> v;
     TreeNode* curr = node;
 
-    while(curr != NULL || s.empty() == false){ // stack should not be empty
-        v.push_back(curr->data);
-        curr = curr->leftChildPtr;
-        if(curr->rightChildPtr != NULL){
-            s.push(curr->rightChildPtr);
-        }
-        
-    }
+    
 
 }
+
+// Inorder: 4 2 5 1 3
+// Preorder: 1 2 4 5 3
+// Postorder: 4 5 2 3 1
 
 int main(){
     TreeNode* root = new TreeNode(1);
