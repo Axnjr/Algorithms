@@ -77,6 +77,15 @@ void preOrderTraversalIterative(TreeNode* node){
     }
 }
 
+void postOrderTraversalRecursive(TreeNode* node){
+    if(node == NULL) return;
+    postOrderTraversalRecursive(node->leftChildPtr);
+    cout << node->data << "->" << endl;
+
+}
+
+// void postOrderTraversal
+
 // Inorder: 4 2 5 1 3
 // Preorder: 1 2 4 5 3
 // Postorder: 4 5 2 3 1
