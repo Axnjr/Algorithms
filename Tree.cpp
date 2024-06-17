@@ -85,21 +85,41 @@ void postOrderTraversalRecursive(TreeNode* node){
 
 }
 
+bool existsInVector(vector<int> v, int target){
+    int cnt = count(v.begin(), v.end(), target);
+    cout << "Count of element:" << target << " in vector is:" << cnt << endl;
+    return (cnt > 1);
+}
+
 void postOrderTraversalIterative(TreeNode* node){
     stack<TreeNode*> s;
     vector<int> v;
     TreeNode* curr = node;
 
-    while(curr != NULL){
+    while(curr != NULL || s.empty() == false){
         while(curr != NULL){
             s.push(curr);
             curr = curr->leftChildPtr;
         }
-        s.pop();
-        curr = s.top();
-        v.push_back(curr->leftChildPtr->data);
-        v.push_back(curr->rightChildPtr->data);
-        curr = curr->rightChildPtr;
+        if(s.size() > 1){
+            s.pop();      
+        }
+        if(s.empty() == false){
+            curr = s.top();
+        }
+        if(!existsInVector(v, curr->leftChildPtr->data) && !existsInVector(v, curr->rightChildPtr->data)){
+            v.push_back(curr->leftChildPtr->data);
+            v.push_back(curr->rightChildPtr->data);
+            curr = curr->rightChildPtr;
+        }
+        curr = NULL;
+    }
+
+    v.push_back(node->data); // push the root node at the end
+
+    cout << "TRAVERSED TREE IN POST-ORDER STYLE: ";
+    for(int i = 0; i < v.size(); i++){
+        cout << v[i] << endl;
     }
 }
 
@@ -107,19 +127,16 @@ void postOrderTraversalIterative(TreeNode* node){
 // Preorder: 1 2 4 5 3
 // Postorder: 4 5 2 3 1
 
-bool existsInVector(vector<int> v, int target){
-    int cnt = count(v.begin(), v.end(), target);
-    return (cnt > 1);
-}
-
 int main(){
     TreeNode* root = new TreeNode(1);
-    root->leftChildPtr = new TreeNode(2);
-    root->rightChildPtr = new TreeNode(3);
-    root->leftChildPtr->leftChildPtr = new TreeNode(4);
-    root->leftChildPtr->rightChildPtr = new TreeNode(5);
+    // root->leftChildPtr = new TreeNode(2);
+    root->rightChildPtr = new TreeNode(2);
+    root->rightChildPtr->leftChildPtr = new TreeNode(3);
+    // root->leftChildPtr->rightChildPtr = new TreeNode(5);
+
 
     // inOrderTraversalIterative(root);
-    preOrderTraversalIterative(root);
+    // preOrderTraversalIterative(root);
+    postOrderTraversalIterative(root);
     return 0;
 }
