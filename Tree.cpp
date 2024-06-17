@@ -107,6 +107,11 @@ void postOrderTraversalIterative(TreeNode* node){
 // Preorder: 1 2 4 5 3
 // Postorder: 4 5 2 3 1
 
+bool existsInVector(vector<int> v, int target){
+    int cnt = count(v.begin(), v.end(), target);
+    return (cnt > 1);
+}
+
 int main(){
     TreeNode* root = new TreeNode(1);
     root->leftChildPtr = new TreeNode(2);
