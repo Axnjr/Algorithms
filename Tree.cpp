@@ -84,7 +84,23 @@ void postOrderTraversalRecursive(TreeNode* node){
 
 }
 
-// void postOrderTraversal
+void postOrderTraversalIterative(TreeNode* node){
+    stack<TreeNode*> s;
+    vector<int> v;
+    TreeNode* curr = node;
+
+    while(curr != NULL){
+        while(curr != NULL){
+            s.push(curr);
+            curr = curr->leftChildPtr;
+        }
+        s.pop();
+        curr = s.top();
+        v.push_back(curr->leftChildPtr->data);
+        v.push_back(curr->rightChildPtr->data);
+        curr = curr->rightChildPtr;
+    }
+}
 
 // Inorder: 4 2 5 1 3
 // Preorder: 1 2 4 5 3
