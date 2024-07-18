@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stack>
 #include <vector>
+#include <queue>
 #include <algorithm> 
 using namespace std;
 
@@ -16,6 +17,20 @@ class TreeNode {
         rightChildPtr = NULL;  
     }  
 };
+
+void bfs(TreeNode* node){
+    queue<int> q;
+    while(node != nullptr){
+        q.push(node->data);
+        if(node->leftChildPtr != NULL){
+            q.push(node->leftChildPtr->data);
+        }
+        if(node->rightChildPtr != NULL){
+            q.push(node->rightChildPtr->data);
+        }
+        
+    }
+}
 
 void inOrderTraversalRecursive(TreeNode* node){ // left most node -> root node -> right node
     if (node == NULL) return;
