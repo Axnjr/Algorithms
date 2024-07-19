@@ -40,8 +40,36 @@ void dfs(TreeNode* node){
     }
 }
 
+void up(vector<vector<int>> matrix, vector<int>& visted, int& row, int& col){
+    row--;
+    while (row > 0) {
+        visted.push_back(matrix[row][col]);
+        row--;
+    }
+    col--; // going left
+    row++; // move back to the valid row
+}
+
 void dfs2dMatrix(vector<vector<int>> matrix){
-    
+    int rows = matrix.size(); // 3
+    int cols = matrix[0].size(); // 3
+    int r = 1;
+    int c = cols - 1;
+    vector<int> visted = matrix[0];
+    // down - right - up - right - down - right - up - right - down ....
+    while(r <= rows && c >= 0){
+        cout << "executing !!" << endl;
+        if(r == rows){
+            c--; // # going right
+            up(matrix, visted, r, c);
+        }
+        visted.push_back(matrix[r][c]);
+        r++;
+    }
+    cout << "DFS Matrix:" << endl;
+    for(auto i: visted){
+        cout << i << endl;
+    }
 }
 
 void bfs(TreeNode* node){
@@ -176,9 +204,9 @@ int main(){
     root->leftChildPtr->rightChildPtr = new TreeNode(5);
 
     vector<vector<int>> matrix = { 
-        { -1, 2, 3 },
-        { 0, 9, 8 },
-        { 1, 0, 1 } 
+        { 1, 2, 3 },
+        { 4, 5, 6 },
+        { 7, 8, 9 } 
     };
 
     // inOrderTraversalIterative(root);
