@@ -18,6 +18,32 @@ class TreeNode {
     }  
 };
 
+void dfs(TreeNode* node){
+    stack<TreeNode*> s;
+    vector<int> v;
+    TreeNode* temp = node;
+    while(temp != NULL || s.empty() == false){
+        if(temp == NULL){
+            temp = s.top();
+            s.pop();
+            temp = temp->rightChildPtr;
+        }
+        else {
+            v.push_back(temp->data);
+            s.push(temp);
+            temp = temp->leftChildPtr;
+        }
+    }
+    cout << "DFS TRAVERSED TREE: ";
+    for(int i = 0; i < v.size(); i++){
+        cout << v[i] << endl;
+    }
+}
+
+void dfs2dMatrix(vector<vector<int>> matrix){
+    
+}
+
 void bfs(TreeNode* node){
     queue<int> q;
     while(node != nullptr){
@@ -144,14 +170,22 @@ void postOrderTraversalIterative(TreeNode* node){
 
 int main(){
     TreeNode* root = new TreeNode(1);
-    // root->leftChildPtr = new TreeNode(2);
-    root->rightChildPtr = new TreeNode(2);
-    root->rightChildPtr->leftChildPtr = new TreeNode(3);
-    // root->leftChildPtr->rightChildPtr = new TreeNode(5);
+    root->leftChildPtr = new TreeNode(2);
+    root->rightChildPtr = new TreeNode(3);
+    root->rightChildPtr->leftChildPtr = new TreeNode(4);
+    root->leftChildPtr->rightChildPtr = new TreeNode(5);
 
+    vector<vector<int>> matrix = { 
+        { -1, 2, 3 },
+        { 0, 9, 8 },
+        { 1, 0, 1 } 
+    };
 
     // inOrderTraversalIterative(root);
     // preOrderTraversalIterative(root);
-    postOrderTraversalIterative(root);
+    // postOrderTraversalIterative(root);
+    // dfs(root);
+
+    dfs2dMatrix(matrix);
     return 0;
 }
