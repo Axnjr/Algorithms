@@ -1,16 +1,11 @@
 #include <iostream> 
+#include "ll_node.h"
 using namespace std;
 
-class Node { 
-    public: 
-        int data; 
-        Node* next; 
-
-	Node(int data) { 
-		this->data = data; 
-		this->next = NULL; 
-	} 
-}; 
+Node::Node(int data) { 
+	this->data = data; 
+	this->next = NULL; 
+} 
  
 class Linkedlist { 
 	Node* head; // head variable stores the memory location of the Node class `Object`
