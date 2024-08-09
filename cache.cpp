@@ -11,58 +11,80 @@ class ip_cache {
     // constant time insertion and constant time erase, can work as stack / queue.
     // Methods: pop_back, pop_front, push_back, push_back
     public:
-    static list<string> lru;
-    // lru_map has a pair that stores the iterator in the lru and the corresponding index in the ip_pool
-    static unordered_map<string, pair<list<string>::iterator, int>> lru_map;
-    static int cap;
+        static list<string> lru;
+        // lru_map has a pair that stores the iterator in the lru and the corresponding index in the ip_pool
+        static unordered_map<string, pair<list<string>::iterator, int>> lru_map;
+        static int cap;
 
-    void show_cache() {
-        cout << endl << "THE CACHE: [ ";
-        for (auto ip : lru){
+    void show_cache()
+    {
+        cout << endl
+             << "THE CACHE: [ ";
+        for (auto ip : lru)
+        {
             cout << ip << " , ";
         }
         cout << " ]" << endl;
     }
 
-    void add(string ip, int ip_pool_index) {
+    void add(string ip, int ip_pool_index)
+    {
         // auto ip_ref = lru_map.find(ip);
-        if (lru.size() == cap) {
+        if (lru.size() == cap)
+        {
             lru_map.erase(lru.front());
             lru.pop_front();
+            cout << "POPPED FRONT !" << endl;
         }
         lru.push_front(ip);
         lru_map[ip] = make_pair(lru.begin(), ip_pool_index);
     }
 
-    void update_cache(string ip) {
-        lru.remove(ip);
-        lru.push_back(ip);
-        lru_map[ip].first = prev(lru.end()); // Returns an iterator pointing to the element that it would be pointing to if advanced -n positions.
+    void update_cache(string ip)
+    {
+        auto it1 = lru_map[ip].first;
+        auto it2 = std::next(it1, 1);
+        if (it2 != lru.end())
+        {
+            // store next val in a temporary var
+            auto temp = *it2;
+            // swap lru elements
+            *it2 = ip;
+            *it1 = temp;
+            // swap map iterator
+            lru_map[ip].first = it2;
+            lru_map[temp].first = it1;
+        }
     }
 
-    int find_ip(string ip, int &ip_pool_index) {
-        if (lru_map.find(ip) == lru_map.end()) {
+    int find_ip(string ip, int &ip_pool_index)
+    {
+        if (lru_map.find(ip) == lru_map.end())
+        {
             add(ip, ip_pool_index);
             return -1;
         }
-        else { // ip is repeated
+        else
+        { // ip is repeated
             update_cache(ip);
-            return lru_map[ip].second; 
+            return lru_map[ip].second;
         }
     }
 
-    void show_cache_analysis(vector<string> ip_pool) {
+    void show_cache_analysis(vector<string> ip_pool)
+    {
         cout << endl
              << "Client and Server IP's mapping: " << endl;
-        for (auto &ci : lru_map) {
-            cout << "Client Ip: " << ci.first << " Maps to Server Ip: " << ip_pool[ci.second.second] << "|||| " << *ci.second.first << endl;
+        for (auto &ci : lru_map)
+        {
+            cout << "Client Ip: " << ci.first << " Maps to Server Ip: " << ip_pool[ci.second.second] << " * = " << *ci.second.first << endl;
         }
     }
 };
 
 list<string> ip_cache::lru;
 unordered_map<string, pair<list<string>::iterator, int>> ip_cache::lru_map;
-int ip_cache::cap = 5;
+int ip_cache::cap = 4;
 
 static int REQUEST_COUNT = 0;
 static int PORT;
@@ -101,27 +123,20 @@ int main()
 
     vector<string> clientIps = {
         "12.34.56.34",
-        // "34.44.55.66",
+        "34.44.55.66",
+        "34.44.55.66",
         "3.4.5.66",
         "3.4.5.66",
+        "12.34.56.34",
+        "12.34.56.34",
+        "99.98.97.2",
+        "99.98.97.2",
         "3.4.5.66",
         "3.4.5.66",
-        // "12.34.56.34",
-        // "12.34.56.34",
-        // "99.98.97.2",
-        // "23.67.71.39",
-        // "23.67.71.39",
-        // "3.4.5.66",
-        // "3.4.5.66",
-        // "3.4.5.66",
-        // "3.4.5.66",
-        // "3.4.5.66",
-        // "12.34.56.34",
-        // "4.4.5.66",
-        // "3.4.5.66",
-        // "59.1.3.88",
-        // "55.2.44.1",
-        // "98.9.3.1"
+        "99.98.97.2",
+        "12.34.56.34",
+        "12.34.56.34",
+        "12.34.56.34",
     };
 
     cout << "SERVER IP's:" << endl;

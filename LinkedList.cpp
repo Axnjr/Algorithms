@@ -2,13 +2,13 @@
 #include "ll_node.h"
 using namespace std;
 
-Node::Node(int data) { 
-	this->data = data; 
-	this->next = NULL; 
-} 
+// Node<int>::Node(int data) { 
+// 	this->data = data; 
+// 	this->next = NULL; 
+// } 
  
 class Linkedlist { 
-	Node* head; // head variable stores the memory location of the Node class `Object`
+	Node<int>* head; // head variable stores the memory location of the Node class `Object`
 	public:  
 
 	Linkedlist() { 
@@ -16,13 +16,13 @@ class Linkedlist {
 	} 
 
 	void insertNode(int data) { 
-		Node* newNode = new Node(data); 
+		Node<int>* newNode = new Node<int>(data); 
 		if (head == NULL) { 
 			head = newNode; 
 			return; 
 		} 
 		// Traverse till end of list 
-		Node* temp = head; 
+		Node<int>* temp = head; 
 		while (temp->next != NULL) { 
 			temp = temp->next; 
 		} 
@@ -30,7 +30,7 @@ class Linkedlist {
 	} 
 
 	void printList() { 
-		Node* temp = head;  
+		Node<int>* temp = head;  
 		if (head == NULL) { 
 			cout << "List is empty" << endl; 
 			return; 
@@ -47,7 +47,7 @@ class Linkedlist {
 			return; 
 		}  
 
-		Node* temp = head;
+		Node<int>* temp = head;
 
 		while(temp->next != NULL){
 			if(temp->next->data == node) {
@@ -56,7 +56,7 @@ class Linkedlist {
 					temp->next = NULL;
 					break;
 				}
-				Node* t = temp->next->next;
+				Node<int>* t = temp->next->next;
 				delete temp->next;
 				temp->next = t;
 			}
