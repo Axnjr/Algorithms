@@ -3,89 +3,10 @@
 #include <iostream>
 #include <regex>
 #include <map>
+#include <queue>
+#include <unordered_map>
+#include <map>
 using namespace std;
-// Given a array of distinct integers print all pairs with same absolute diffrence
-// void printPairsWithAbsDiff(vector<int> nums)
-// {
-//     multimap<int, pair<int, int>> mp;
-//     multimap<int, int> freq;
-//     for (int i = 0; i < nums.size(); i++)
-//     {
-//         for (int j = i + 1; j < nums.size(); j++)
-//         {
-//             int diff = abs(nums[i] - nums[j]);
-//             // mp[{nums[i], nums[j]}] = abs(nums[i] - nums[j]);
-//             mp.insert({diff, {nums[i], nums[j]}});
-//         }
-//     }
-//     for (auto &pair : mp)
-//     {
-//         // cout << "(" << pair.second.first << ", " << pair.second.second << ") ->" << pair.first << endl;
-//         if (freq.count(pair.second))
-//         {
-//             freq[pair.second]++;
-//         }
-//         else
-//         {
-//             freq[pair.second] = 1;
-//         }
-//     }
-// }
-
-// int evalRPN(vector<string> &tokens)
-// {
-//     stack<int> ds; // digitStack
-//     regex reg("[0-9]");
-//     for (auto token : tokens)
-//     {
-//         if (regex_match(token, reg))
-//         {
-//             ds.push(stoi(token));
-//         }
-//         else
-//         {
-//             switch (token)
-//             {
-//             case "+":
-//                 int sum = 0;
-//                 while (ds.empty())
-//                 {
-//                     sum += ds.top()
-//                                ds.pop()
-//                 }
-//                 ds.push(sum);
-//                 break;
-//             case "-":
-//                 int sum = 0;
-//                 while (ds.empty())
-//                 {
-//                     sum -= ds.top()
-//                                ds.pop()
-//                 }
-//                 ds.push(sum);
-//                 break;
-//             case "*":
-//                 int sum = 1;
-//                 while (ds.empty())
-//                 {
-//                     sum *= ds.top()
-//                                ds.pop()
-//                 }
-//                 ds.push(sum);
-//                 break;
-//             case "/":
-//                 int sum = 1;
-//                 while (ds.empty())
-//                 {
-//                     sum /= ds.top()
-//                                ds.pop()
-//                 }
-//                 ds.push(sum);
-//                 break;
-//             }
-//         }
-//     }
-// }
 
 vector<int> dailyTemperatures(vector<int> &tem)
 {
@@ -107,34 +28,78 @@ vector<int> dailyTemperatures(vector<int> &tem)
     return res;
 }
 
+vector<int> topKFrequent(vector<int> &nums, int k)
+{
+    map<int, int> m; // (val, occurences)
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> p;
+    vector<int> res;
+
+    for (auto n : nums)
+    {
+        m[n]++;
+    }
+
+    for (auto mv : m)
+    {
+        p.push({mv.second, mv.first});
+        if (p.size() > k)
+        {
+            p.pop();
+            // break;
+        }
+    }
+
+    while (!p.empty())
+    {
+        res.push_back(p.top().second);
+        p.pop();
+    }
+
+    for (auto i : res)
+    {
+        cout << i << endl;
+    }
+
+    return res;
+}
+
 class Solution {
-public:
-    void topKFrequent(vector<int>& nums, int k) {
+   public:
+    unordered_map<string, vector<string>> mp;
+    vector<string> removeAnagrams(vector<string>& words) 
+    {
+        vector<string> result;
+        for(auto& i: words){
+            vector<int> count(26, 0);
+            for(auto& j: i){
+                count[j - 'a']++;
+            }
+            string key;
+            for(auto c: count){
+                key += to_string(c);
+            }
+            mp[key].push_back(i);
+        }
         
-        map<int, int> m;
-
-        for(auto n: nums){
-            auto temp = m.find(n);
-            if(temp != m.end()){
-                m[n]++;
-            }
-            else {
-                m.emplace(n, 1);
+        for(auto pair: mp){
+            if(pair.second.size()){
+                string t = pair.second[0];
+                result.push_back(t);
             }
         }
 
-        for(auto mv: m){
-            cout << mv.first << " , " << mv.second << endl;
-        }
+        return result;
     }
 };
 
 int main()
 {
     Solution sol;
-    vector<int> v = {30,38,30,38,36,40,35,30,28};
+    vector<int> v = {30, 38, 30, 38, 36, 40, 35, 30, 28};
+    string s1 = "abc", s2 = "lecaabee";
     // printPairsWithAbsDiff(v);
     // dailyTemperatures(v);
-    sol.topKFrequent(v, 2);
+    // sol.topKFrequent(v, 2);
+    
     return 0;
 }
