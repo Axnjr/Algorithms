@@ -13,6 +13,7 @@ vector<int> slice(const vector<int>& arr, int x, int y){
 vector<int> merge(const vector<int>& ls, vector<int>& rs){
     int i = 0, j = 0;
     vector<int> res;
+    res.reserve(l.size() + r.size());
     while(i < ls.size() && j < rs.size()){
         if(ls[i] < rs[j]){
             res.push_back(ls[i]);
@@ -23,14 +24,8 @@ vector<int> merge(const vector<int>& ls, vector<int>& rs){
             j++;
         }
     }
-    while(i < ls.size()) {
-        res.push_back(ls[i]);
-        i++;
-    }
-    while(j < rs.size()) {
-        res.push_back(rs[j]);
-        j++;
-    }
+    res.insert(res.end(), l.begin() + i, l.end());
+    res.insert(res.end(), r.begin() + j, r.end());
     return res;
 }
 
@@ -49,6 +44,15 @@ vector<int> mergeSort(const vector<int>& arr) {
     vector<int> ls = mergeSort(l);
     vector<int> rs = mergeSort(r);
 
+    return merge(ls, rs);
+}
+
+vector<int> mergeSortEff(vector<int>& nums, int s, int e) {
+    int n = s + e;
+    if(n < 2) return vector<int>(nums.begin() + start, nums.begin() + end);
+    int m = s / 2;
+    vector<int> ls = mergeSortEff(nums, 0, m);
+    vector<int> rs = mergeSortEff(nums, m, s);
     return merge(ls, rs);
 }
 
