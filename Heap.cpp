@@ -11,7 +11,7 @@ enum HeapTypes {
 
 class Heap {
     public:
-        int size = 0; // this indexes the last element always
+        int size = 0;
         HeapTypes type;
         vector<int> heap;
 
@@ -34,11 +34,11 @@ class Heap {
         }
     }
 
-    void delete(int val){
-        int id = find(heap.begin(), heap.end(), val);
-        heap.
+    // void del(int val){
+    //     int id = find(heap.begin(), heap.end(), val);
+    //     heap.
 
-    }
+    // }
 
     private:
 
@@ -75,5 +75,6 @@ int main(){
     h.insert(15);
     h.insert(20);
     h.insert(17);
-    h.insert(8); // 
+    h.insert(8); 
+    h.printHeap();
 }
